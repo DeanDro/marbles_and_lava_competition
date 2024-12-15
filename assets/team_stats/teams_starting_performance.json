@@ -1,0 +1,57 @@
+{
+  "Team 1":
+    {
+      "Name": "Team 1",
+      "Home Base" : "100 Queen Elizabeth Str. London",
+      "Country Origin": "England",
+      "Money": 100000000.00,
+      "Engineering Score": 3.4,
+      "Drivers Score": 4.1,
+      "Teams Mood": 5.0,
+      "Material Quality": 2.9,
+      "Research Investment": 0,
+      "Research Cycle": 0,
+      "Months of Research": 0,
+      "Historic Performance Score": 3.8,
+      "Total Members": 79,
+      "Engineering Members": 7,
+      "Engineering Capacity": 10,
+      "Drivers": 2,
+      "Drivers Capacity": 2,
+      "Research Members": 10,
+      "Research Capacity": 15,
+      "Racing Team Members": 28,
+      "Racing Team Capacity": 35,
+      "Business Team Members": 32,
+      "Business Team Capacity": 40,
+      "Manager": ""
+    }
+  ,
+  "Team 2":
+    {
+      "Name" : "Team 2",
+      "Home Base" : "200 Viking Road, Oslo",
+      "Country Origin": "Norway",
+      "Money": 12400000.00,
+      "Engineering Score": 2.4,
+      "Drivers Score": 3.1,
+      "Teams Mood": 5.0,
+      "Material Quality": 4.9,
+      "Research Investment": 0,
+      "Research Cycle": 0,
+      "Months of Research": 0,
+      "Historic Performance Score": 3.9,
+      "Total Members": 79,
+      "Engineering Members": 7,
+      "Engineering Capacity": 10,
+      "Drivers": 2,
+      "Drivers Capacity": 2,
+      "Research Members": 10,
+      "Research Capacity": 15,
+      "Racing Team Members": 28,
+      "Racing Team Capacity": 35,
+      "Business Team Members": 32,
+      "Business Team Capacity": 40,
+      "Manager": ""
+    }
+}
