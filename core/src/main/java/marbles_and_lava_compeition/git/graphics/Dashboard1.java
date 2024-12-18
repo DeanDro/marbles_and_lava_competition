@@ -1,37 +1,18 @@
 package marbles_and_lava_compeition.git.graphics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 // Custom classes
 import marbles_and_lava_compeition.git.Main;
-import marbles_and_lava_compeition.git.utilities.Marbles;
-import marbles_and_lava_compeition.git.utilities.CountriesPopulation;
+import marbles_and_lava_compeition.git.utilities.DashboardUtilities;
 
 
 public class Dashboard1 extends ScreenAdapter {
@@ -44,6 +25,12 @@ public class Dashboard1 extends ScreenAdapter {
     public BitmapFont font = new BitmapFont();
     public Skin skin = new Skin(Gdx.files.internal("data/comic/skin/comic-ui.json"));
     public String gamer;
+    public float timeLapsed;
+    public float timeRemaining;
+    public int previousTime;
+
+    // Helper classes
+    DashboardUtilities utilities = new DashboardUtilities();
 
     // Background Graphics
     private Texture peopleTexture;
@@ -63,14 +50,14 @@ public class Dashboard1 extends ScreenAdapter {
     private Sprite waterLavaSprite4;
     private Sprite waterLavaSprite5;
     private Sprite waterLavaSprite6;
-    private Texture pointsTexture1;
-    private Sprite pointsSprite1;
-    private Texture pointsTexture2;
+    private Texture pointsTexture;
+    private Sprite pointsSprite;
     private Sprite pointsSprite2;
-    private Texture pointsTexture3;
     private Sprite pointsSprite3;
-    private Texture pointsTexture4;
-    private Sprite pointsSprite4;
+    private Texture trambolineTexture;
+    private Sprite trambolineSprite;
+    private Label min;
+    private Label sec;
 
 
     public Dashboard1(Main game, String[] groups, String gamer){
@@ -81,31 +68,42 @@ public class Dashboard1 extends ScreenAdapter {
     }
 
     // Creates the dashboard according to the player
-    public void populatePlayerGraphics(){
+    public void populatePlayerGraphics(float timeRemaining, float timeLapsed){
+
+        // Elements for everyone
+        this.grassTexture1 = new Texture(Gdx.files.internal("background_images/grass.png"));
+        this.trambolineTexture = new Texture(Gdx.files.internal("background_images/tranpolin.png"));
+        this.trambolineSprite = new Sprite(this.trambolineTexture);
+
+        int remMin = (int) (timeRemaining/60);
+        int remSec = (int) (timeRemaining % 60);
+
+
 
         if (this.gamer.equals("Anastasia")){
             this.peopleTexture = new Texture(Gdx.files.internal(BACKGROUND_IMAGES_KIDS_CHEERING_4_PNG));
             this.waterLavaTexture = new Texture(Gdx.files.internal("background_images/water.png"));
+            this.waterLavaSprite = new Sprite(this.waterLavaTexture);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite, 250, 0, 200, 50);
+
 
             this.goalieTexture = new Texture(Gdx.files.internal("background_images/unicorn.png"));
             this.goalieSprite = new Sprite(this.goalieTexture);
 
-            this.grassTexture1 = new Texture(Gdx.files.internal("background_images/grass.png"));
             this.grassSprite1 = new Sprite(this.grassTexture1);
-            this.grassSprite1.setSize(1170, 50);
-            this.grassSprite1.setPosition(450, 0);
-            this.grassSprite1.draw(this.game.batch);
+            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite1, 450, 0, 1170, 50);
 
             this.netTexture = new Texture(Gdx.files.internal("background_images/nett.png"));
             this.netSprite = new Sprite(this.netTexture);
-            this.netSprite.setSize(50, 300);
-            this.netSprite.setPosition(1570, 50);
-            netSprite.draw(this.game.batch);
+            this.utilities.setSpritePosSizeDraw(this.game, this.netSprite, 1570, 50, 50, 300);
+
+            this.utilities.setSpritePosSizeDraw(this.game, this.trambolineSprite, 0, 0, 250, 100);
 
         } else {
             this.goalieTexture = new Texture(Gdx.files.internal("background_images/red_ball.png"));
             this.peopleTexture = new Texture(Gdx.files.internal("background_images/dinosaur.png"));
             this.waterLavaTexture = new Texture(Gdx.files.internal("background_images/laval.png"));
+
             this.waterLavaSprite = new Sprite(this.waterLavaTexture);
             this.waterLavaSprite2 = new Sprite(this.waterLavaTexture);
             this.waterLavaSprite3 = new Sprite(this.waterLavaTexture);
@@ -113,35 +111,36 @@ public class Dashboard1 extends ScreenAdapter {
             this.waterLavaSprite5 = new Sprite(this.waterLavaTexture);
             this.waterLavaSprite6 = new Sprite(this.waterLavaTexture);
 
-            this.waterLavaSprite.setSize(300, 50);
-            this.waterLavaSprite2.setSize(200, 50);
-            this.waterLavaSprite3.setSize(200, 50);
-            this.waterLavaSprite4.setSize(50, 150);
-            this.waterLavaSprite5.setSize(50, 150);
-            this.waterLavaSprite6.setSize(50, 150);
+            this.grassSprite1 = new Sprite(this.grassTexture1);
+            this.grassSprite2 = new Sprite(this.grassTexture1);
+            this.grassSprite3 = new Sprite(this.grassTexture1);
 
-            this.waterLavaSprite.setPosition(400, 0);
-            this.waterLavaSprite2.setPosition(900, 0);
-            this.waterLavaSprite3.setPosition(1300, 0);
-            this.waterLavaSprite4.setPosition(1570, 200);
-            this.waterLavaSprite5.setPosition(1570, 450);
-            this.waterLavaSprite6.setPosition(1570, 800);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite, 400, 0, 300, 50);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite2, 900, 0, 200, 50);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite3, 1300, 0, 320, 50);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite4,1570, 200, 50, 150);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite5, 1570, 450, 50, 150);
+            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite6, 1570, 750, 50, 160);
 
-            this.waterLavaSprite.draw(this.game.batch);
-            this.waterLavaSprite2.draw(this.game.batch);
-            this.waterLavaSprite3.draw(this.game.batch);
-            this.waterLavaSprite4.draw(this.game.batch);
-            this.waterLavaSprite5.draw(this.game.batch);
-            this.waterLavaSprite6.draw(this.game.batch);
+            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite1, 200, 0, 200, 50);
+            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite2, 700, 0, 200, 50);
+            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite3, 1100, 0, 200, 50);
+
+            this.utilities.setSpritePosSizeDraw(this.game, this.trambolineSprite, 0, 0, 200, 100);
+
+            this.pointsTexture = new Texture(Gdx.files.internal("background_images/points.png"));
+            this.pointsSprite = new Sprite(this.pointsTexture);
+            this.pointsSprite2 = new Sprite(this.pointsTexture);
+            this.pointsSprite3 = new Sprite(this.pointsTexture);
+            this.utilities.setSpritePosSizeDraw(this.game, this.pointsSprite, 1570, 50, 50, 150);
+            this.utilities.setSpritePosSizeDraw(this.game, this.pointsSprite2, 1570, 350, 50, 150);
+            this.utilities.setSpritePosSizeDraw(this.game, this.pointsSprite3, 1570, 600, 50, 150);
 
         }
 
 
         this.peopleSprite = new Sprite(this.peopleTexture);
-
-        this.peopleSprite.setPosition(600, 200);
-        this.peopleSprite.setSize(400, 400);
-        this.peopleSprite.draw(this.game.batch);
+        this.utilities.setSpritePosSizeDraw(this.game, this.peopleSprite, 600, 200, 400, 400);
 
     }
 
@@ -150,15 +149,15 @@ public class Dashboard1 extends ScreenAdapter {
 
         if (this.gamer.equals("Anastasia")){
             this.netTexture.dispose();
-            this.grassTexture1.dispose();
 
         } else {
-
-            this.waterLavaTexture.dispose();
-
+            this.pointsTexture.dispose();
         }
 
+        this.waterLavaTexture.dispose();
         this.peopleTexture.dispose();
+        this.grassTexture1.dispose();
+        this.trambolineTexture.dispose();
 
     }
 
@@ -168,6 +167,10 @@ public class Dashboard1 extends ScreenAdapter {
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
+        // Two minutes per game
+        this.timeRemaining = 2 * 1000;
+        this.timeLapsed = 0;
+        this.previousTime = 0;
 
     }
 
@@ -182,10 +185,19 @@ public class Dashboard1 extends ScreenAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         }
 
+        if (timeRemaining > 0){
+            timeLapsed += Gdx.graphics.getDeltaTime();
+            timeRemaining--;
+        }
+
         this.game.batch.begin();
 
         // Populate Graphics
-        this.populatePlayerGraphics();
+        this.populatePlayerGraphics(timeRemaining, timeLapsed);
+
+        int remMin = (int) (timeRemaining/60);
+        int remSec = (int) (timeRemaining % 60);
+        font.draw(game.batch, String.format("%02d:%02d", remMin, remSec), 1000, 800);
 
         this.stage.draw();
         this.game.batch.end();
