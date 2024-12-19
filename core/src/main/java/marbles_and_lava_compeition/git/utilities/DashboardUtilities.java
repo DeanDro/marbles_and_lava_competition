@@ -32,6 +32,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 // Custom Classes
 import marbles_and_lava_compeition.git.Main;
 
+// Generic libs
+import java.util.ArrayList;
+
 public class DashboardUtilities {
 
     public DashboardUtilities(){
@@ -43,6 +46,17 @@ public class DashboardUtilities {
         sprite.setSize(width, height);
         sprite.setPosition(posX, posY);
         sprite.draw(game.batch);
+    }
+
+    public void setSpritePosSize(Main game, Sprite sprite, int posX, int posY, int width, int height){
+        sprite.setSize(width, height);
+        sprite.setPosition(posX, posY);
+    }
+
+    public void drawSpriteElements(ArrayList<Sprite> elements, Main game){
+        for (Sprite element:elements){
+            element.draw(game.batch);
+        }
     }
 
 

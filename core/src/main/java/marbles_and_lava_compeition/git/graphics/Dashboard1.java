@@ -14,6 +14,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 // Custom classes
 import marbles_and_lava_compeition.git.Main;
 import marbles_and_lava_compeition.git.utilities.DashboardUtilities;
+import marbles_and_lava_compeition.git.utilities.Marbles;
+
+// Generic libs
+import java.util.ArrayList;
 
 
 public class Dashboard1 extends ScreenAdapter {
@@ -28,11 +32,13 @@ public class Dashboard1 extends ScreenAdapter {
     public String gamer;
     public float timeLapsed;
     public float timeRemaining;
-    public int previousTime;
+    public int sessionTime;
     public int ballsCounter;
+    private ArrayList<Sprite> elements;
 
     // Helper classes
     DashboardUtilities utilities = new DashboardUtilities();
+    Marbles marbles;
 
     // Background Graphics
     private Texture peopleTexture;
@@ -84,10 +90,11 @@ public class Dashboard1 extends ScreenAdapter {
         this.winners = new String[(groups.length)/2];  // Only half of the marbles will be making it to the next round
         this.gamer = gamer;
         this.ballsCounter = 0;
+        this.elements = new ArrayList<>();
     }
 
     // Creates the dashboard according to the player
-    public void populatePlayerGraphics(float timeRemaining, float timeLapsed){
+    public void populatePlayerGraphics(){
 
         // Elements for everyone
         this.grassTexture1 = new Texture(Gdx.files.internal("background_images/grass.png"));
@@ -98,16 +105,20 @@ public class Dashboard1 extends ScreenAdapter {
             this.peopleTexture = new Texture(Gdx.files.internal(BACKGROUND_IMAGES_KIDS_CHEERING_4_PNG));
             this.waterLavaTexture = new Texture(Gdx.files.internal("background_images/water.png"));
             this.waterLavaSprite = new Sprite(this.waterLavaTexture);
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite, 250, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite, 250, 0, 200, 50);
+            this.elements.add(this.waterLavaSprite);
 
             this.grassSprite1 = new Sprite(this.grassTexture1);
-            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite1, 450, 0, 1170, 50);
+            this.utilities.setSpritePosSize(this.game, this.grassSprite1, 450, 0, 1170, 50);
+            this.elements.add(this.grassSprite1);
 
             this.netTexture = new Texture(Gdx.files.internal("background_images/nett.png"));
             this.netSprite = new Sprite(this.netTexture);
-            this.utilities.setSpritePosSizeDraw(this.game, this.netSprite, 1570, 50, 50, 300);
+            this.utilities.setSpritePosSize(this.game, this.netSprite, 1570, 50, 50, 300);
+            this.elements.add(this.netSprite);
 
-            this.utilities.setSpritePosSizeDraw(this.game, this.trambolineSprite, 0, 0, 250, 100);
+            this.utilities.setSpritePosSize(this.game, this.trambolineSprite, 0, 0, 250, 100);
+            this.elements.add(this.trambolineSprite);
 
         } else {
 
@@ -125,32 +136,45 @@ public class Dashboard1 extends ScreenAdapter {
             this.grassSprite2 = new Sprite(this.grassTexture1);
             this.grassSprite3 = new Sprite(this.grassTexture1);
 
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite, 400, 0, 300, 50);
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite2, 900, 0, 200, 50);
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite3, 1300, 0, 320, 50);
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite4,1570, 200, 50, 150);
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite5, 1570, 450, 50, 150);
-            this.utilities.setSpritePosSizeDraw(this.game, this.waterLavaSprite6, 1570, 750, 50, 160);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite, 400, 0, 300, 50);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite2, 900, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite3, 1300, 0, 320, 50);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite4,1570, 200, 50, 150);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite5, 1570, 450, 50, 150);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite6, 1570, 750, 50, 160);
+            this.elements.add(this.waterLavaSprite);
+            this.elements.add(this.waterLavaSprite2);
+            this.elements.add(this.waterLavaSprite3);
+            this.elements.add(this.waterLavaSprite4);
+            this.elements.add(this.waterLavaSprite5);
+            this.elements.add(this.waterLavaSprite6);
 
-            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite1, 200, 0, 200, 50);
-            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite2, 700, 0, 200, 50);
-            this.utilities.setSpritePosSizeDraw(this.game, this.grassSprite3, 1100, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.grassSprite1, 200, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.grassSprite2, 700, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.grassSprite3, 1100, 0, 200, 50);
+            this.elements.add(this.grassSprite1);
+            this.elements.add(this.grassSprite2);
+            this.elements.add(this.grassSprite3);
 
-            this.utilities.setSpritePosSizeDraw(this.game, this.trambolineSprite, 0, 0, 200, 100);
+            this.utilities.setSpritePosSize(this.game, this.trambolineSprite, 0, 0, 200, 100);
+            this.elements.add(this.trambolineSprite);
 
             this.pointsTexture = new Texture(Gdx.files.internal("background_images/points.png"));
             this.pointsSprite = new Sprite(this.pointsTexture);
             this.pointsSprite2 = new Sprite(this.pointsTexture);
             this.pointsSprite3 = new Sprite(this.pointsTexture);
-            this.utilities.setSpritePosSizeDraw(this.game, this.pointsSprite, 1570, 50, 50, 150);
-            this.utilities.setSpritePosSizeDraw(this.game, this.pointsSprite2, 1570, 350, 50, 150);
-            this.utilities.setSpritePosSizeDraw(this.game, this.pointsSprite3, 1570, 600, 50, 150);
+            this.utilities.setSpritePosSize(this.game, this.pointsSprite, 1570, 50, 50, 150);
+            this.utilities.setSpritePosSize(this.game, this.pointsSprite2, 1570, 350, 50, 150);
+            this.utilities.setSpritePosSize(this.game, this.pointsSprite3, 1570, 600, 50, 150);
+            this.elements.add(this.pointsSprite);
+            this.elements.add(this.pointsSprite2);
+            this.elements.add(this.pointsSprite3);
 
         }
 
-
         this.peopleSprite = new Sprite(this.peopleTexture);
-        this.utilities.setSpritePosSizeDraw(this.game, this.peopleSprite, 600, 200, 400, 400);
+        this.utilities.setSpritePosSize(this.game, this.peopleSprite, 600, 200, 400, 400);
+        this.elements.add(this.peopleSprite);
 
     }
 
@@ -209,7 +233,6 @@ public class Dashboard1 extends ScreenAdapter {
             if (this.goalieY > 800 || this.goalieY < 50){
                 this.goalieSpeed *= -1;
             }
-
         }
 
         this.goalieY += this.goalieSpeed;
@@ -225,7 +248,12 @@ public class Dashboard1 extends ScreenAdapter {
         // Two minutes per game
         this.timeRemaining = 2 * 60;
         this.timeLapsed = 0;
-        this.previousTime = 0;
+
+        // Tracking session time
+        this.sessionTime = 130;
+
+        // Adding stable elements
+        this.populatePlayerGraphics();
 
         // Moving elements initial positions
         this.goalieY = 50;
@@ -233,8 +261,10 @@ public class Dashboard1 extends ScreenAdapter {
         this.pipeSpeed = 1;
 
         if (this.gamer.equals("William")){
-            this.goalieSpeed = 15;
+            this.goalieSpeed = 10;
         }
+
+
 
     }
 
@@ -257,7 +287,8 @@ public class Dashboard1 extends ScreenAdapter {
         this.game.batch.begin();
 
         // Populate Graphics
-        this.populatePlayerGraphics(timeRemaining, timeLapsed);
+        //this.populatePlayerGraphics();
+        this.utilities.drawSpriteElements(this.elements, this.game);
 
         int remMin = (int) (timeRemaining/60);
         int remSec = (int) (timeRemaining % 60);
