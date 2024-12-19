@@ -2,6 +2,7 @@ package marbles_and_lava_compeition.git.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,12 +34,14 @@ public class Dashboard1 extends ScreenAdapter {
     public float timeLapsed;
     public float timeRemaining;
     public int sessionTime;
-    public int ballsCounter;
+    private int ballsCounter;
+    private int totalBalls;
+    private int currentBallCounter;
     private ArrayList<Sprite> elements;
+    private boolean gameOn;
 
     // Helper classes
     DashboardUtilities utilities = new DashboardUtilities();
-    Marbles marbles;
 
     // Background Graphics
     private Texture peopleTexture;
@@ -90,7 +93,10 @@ public class Dashboard1 extends ScreenAdapter {
         this.winners = new String[(groups.length)/2];  // Only half of the marbles will be making it to the next round
         this.gamer = gamer;
         this.ballsCounter = 0;
+        this.currentBallCounter = 0;
+        this.totalBalls = countriesGroups.length;
         this.elements = new ArrayList<>();
+        this.gameOn = false;
     }
 
     // Creates the dashboard according to the player
@@ -105,7 +111,7 @@ public class Dashboard1 extends ScreenAdapter {
             this.peopleTexture = new Texture(Gdx.files.internal(BACKGROUND_IMAGES_KIDS_CHEERING_4_PNG));
             this.waterLavaTexture = new Texture(Gdx.files.internal("background_images/water.png"));
             this.waterLavaSprite = new Sprite(this.waterLavaTexture);
-            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite, 250, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite, 170, 0, 280, 50);
             this.elements.add(this.waterLavaSprite);
 
             this.grassSprite1 = new Sprite(this.grassTexture1);
@@ -117,7 +123,8 @@ public class Dashboard1 extends ScreenAdapter {
             this.utilities.setSpritePosSize(this.game, this.netSprite, 1570, 50, 50, 300);
             this.elements.add(this.netSprite);
 
-            this.utilities.setSpritePosSize(this.game, this.trambolineSprite, 0, 0, 250, 100);
+            this.trambolineSprite.setRotation(-50f);
+            this.utilities.setSpritePosSize(this.game, this.trambolineSprite, 25, 10, 300, 100);
             this.elements.add(this.trambolineSprite);
 
         } else {
@@ -139,9 +146,9 @@ public class Dashboard1 extends ScreenAdapter {
             this.utilities.setSpritePosSize(this.game, this.waterLavaSprite, 400, 0, 300, 50);
             this.utilities.setSpritePosSize(this.game, this.waterLavaSprite2, 900, 0, 200, 50);
             this.utilities.setSpritePosSize(this.game, this.waterLavaSprite3, 1300, 0, 320, 50);
-            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite4,1570, 200, 50, 150);
-            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite5, 1570, 450, 50, 150);
-            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite6, 1570, 750, 50, 160);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite4,1550, 200, 70, 150);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite5, 1550, 500, 70, 150);
+            this.utilities.setSpritePosSize(this.game, this.waterLavaSprite6, 1550, 800, 70, 160);
             this.elements.add(this.waterLavaSprite);
             this.elements.add(this.waterLavaSprite2);
             this.elements.add(this.waterLavaSprite3);
@@ -149,26 +156,45 @@ public class Dashboard1 extends ScreenAdapter {
             this.elements.add(this.waterLavaSprite5);
             this.elements.add(this.waterLavaSprite6);
 
-            this.utilities.setSpritePosSize(this.game, this.grassSprite1, 200, 0, 200, 50);
+            this.utilities.setSpritePosSize(this.game, this.grassSprite1, 170, 0, 230, 50);
             this.utilities.setSpritePosSize(this.game, this.grassSprite2, 700, 0, 200, 50);
             this.utilities.setSpritePosSize(this.game, this.grassSprite3, 1100, 0, 200, 50);
             this.elements.add(this.grassSprite1);
             this.elements.add(this.grassSprite2);
             this.elements.add(this.grassSprite3);
 
-            this.utilities.setSpritePosSize(this.game, this.trambolineSprite, 0, 0, 200, 100);
+            this.trambolineSprite.setRotation(-50f);
+            this.utilities.setSpritePosSize(this.game, this.trambolineSprite, 30, 30, 300, 120);
             this.elements.add(this.trambolineSprite);
 
             this.pointsTexture = new Texture(Gdx.files.internal("background_images/points.png"));
             this.pointsSprite = new Sprite(this.pointsTexture);
             this.pointsSprite2 = new Sprite(this.pointsTexture);
             this.pointsSprite3 = new Sprite(this.pointsTexture);
-            this.utilities.setSpritePosSize(this.game, this.pointsSprite, 1570, 50, 50, 150);
-            this.utilities.setSpritePosSize(this.game, this.pointsSprite2, 1570, 350, 50, 150);
-            this.utilities.setSpritePosSize(this.game, this.pointsSprite3, 1570, 600, 50, 150);
+            this.utilities.setSpritePosSize(this.game, this.pointsSprite, 1550, 50, 70, 150);
+            this.utilities.setSpritePosSize(this.game, this.pointsSprite2, 1550, 350, 70, 150);
+            this.utilities.setSpritePosSize(this.game, this.pointsSprite3, 1550, 650, 70, 150);
             this.elements.add(this.pointsSprite);
             this.elements.add(this.pointsSprite2);
             this.elements.add(this.pointsSprite3);
+
+            Label pointsMark1 = new Label("+2", this.skin);
+            pointsMark1.setFontScale(3f);
+            pointsMark1.setColor(Color.BLACK);
+            pointsMark1.setPosition(1560, 110);
+            this.stage.addActor(pointsMark1);
+
+            Label pointsMark2 = new Label("+4", this.skin);
+            pointsMark2.setFontScale(3f);
+            pointsMark2.setColor(Color.BLACK);
+            pointsMark2.setPosition(1560, 460);
+            this.stage.addActor(pointsMark2);
+
+            Label pointsMark3 = new Label("+8", this.skin);
+            pointsMark3.setFontScale(3f);
+            pointsMark3.setColor(Color.BLACK);
+            pointsMark3.setPosition(1560, 760);
+            this.stage.addActor(pointsMark3);
 
         }
 
@@ -237,6 +263,22 @@ public class Dashboard1 extends ScreenAdapter {
 
         this.goalieY += this.goalieSpeed;
 
+    }
+
+    // Check game status. Returns false if game is over and true if we are still playing
+    public boolean gameStatus(){
+        return gameOn || this.currentBallCounter != this.totalBalls;
+    }
+
+    // Method to handle marbles
+    public void marblesMovement(){
+
+        for (String country: this.countriesGroups){
+            if (this.ballsCounter < 4 && this.currentBallCounter < this.totalBalls){
+
+
+            }
+        }
     }
 
     @Override
