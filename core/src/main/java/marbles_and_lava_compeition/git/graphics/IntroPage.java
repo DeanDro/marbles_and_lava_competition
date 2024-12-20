@@ -50,7 +50,7 @@ public class IntroPage extends ScreenAdapter {
                                     "Italy", "Norway", "Switzerland", "Spain", "China", "India",
                                     "Greece", "Ireland", "Germany", "Iceland", "France", "Portugal",
                                     "Belgium", "Mexico", "Japan", "South_Africa", "United_States", "Australia",
-                                    "Vietnam", "New_Zealand", "Netherlands", "Denmark", "Chile", "Belgium",
+                                    "Vietnam", "New_Zealand", "Netherlands", "Denmark", "Chile", "Peru",
                                     "South_Korea", "Malta"};
 
     private String[] countries = utilities.randomizeElementsOrder(allCountries);

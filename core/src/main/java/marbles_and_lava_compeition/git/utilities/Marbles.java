@@ -76,5 +76,14 @@ public class Marbles {
         return this.imgTexture;
     }
 
+    // Set position for Sprite
+    public void setImgSpritePos(int x, int y){
+        this.imgSprite.setPosition(x, y);
+    }
+
+    public Sprite getImgSprite(){
+        return this.imgSprite;
+    }
+
 
 }
