@@ -21,6 +21,7 @@ import marbles_and_lava_compeition.git.utilities.Marbles;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
+import java.util.Random;
 
 
 public class Dashboard1 extends ScreenAdapter {
@@ -95,8 +96,13 @@ public class Dashboard1 extends ScreenAdapter {
     // Session for each game
     // In String array element breakdown is -> 0: Country name, 1: Active/Inactive, 2: posX, 3: posY, 4: speedX, 5: speedY
     private String[] marblesGame = {"Off", "Off", "Off", "Off"};
-    private int[] ballsSpeedX = {2, 2, 2, 2};
-    private int[] ballsSpeedY = {2, 2, 2, 2};
+    private int[] ballsSpeedX = {4, 4, 4, 4};
+    private int[] ballsSpeedY = {4, 4, 4, 4};
+    private int minY = 700;
+    private int maxY = 900;
+    private int minX = 200;
+    private int maxX = 400;
+    private Random random;
 
 
 
@@ -110,6 +116,7 @@ public class Dashboard1 extends ScreenAdapter {
         this.elements = new ArrayList<>();
         this.gameOn = true;
         this.ballsInGame = 0;
+        this.random = new Random();
     }
 
     // Creates the dashboard according to the player
@@ -296,28 +303,36 @@ public class Dashboard1 extends ScreenAdapter {
             this.marble1 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
             this.ballTexture1 = this.marble1.getTexture();
             this.ballSprite1 = new Sprite(this.ballTexture1);
-            this.ballSprite1.setPosition(50f, 50f);
+            int x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+            int y = random.nextInt(this.maxY - this.minY) + this.minY;
+            this.ballSprite1.setPosition(x, y);
             this.ballSprite1.setSize(50, 50);
             this.currentBallCounter++;
 
             this.marble2 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
             this.ballTexture2 = this.marble2.getTexture();
             this.ballSprite2 = new Sprite(this.ballTexture2);
-            this.ballSprite2.setPosition(50f, 50f);
+            x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+            y = random.nextInt(this.maxY - this.minY) + this.minY;
+            this.ballSprite2.setPosition(x, y);
             this.ballSprite2.setSize(50, 50);
             this.currentBallCounter++;
 
             this.marble3 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
             this.ballTexture3 = this.marble3.getTexture();
             this.ballSprite3 = new Sprite(this.ballTexture3);
-            this.ballSprite3.setPosition(50f, 50f);
+            x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+            y = random.nextInt(this.maxY - this.minY) + this.minY;
+            this.ballSprite3.setPosition(x, y);
             this.ballSprite3.setSize(50, 50);
             this.currentBallCounter++;
 
             this.marble4 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
             this.ballTexture4 = this.marble4.getTexture();
             this.ballSprite4 = new Sprite(this.ballTexture4);
-            this.ballSprite4.setPosition(50f, 50f);
+            x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+            y = random.nextInt(this.maxY - this.minY) + this.minY;
+            this.ballSprite4.setPosition(x, y);
             this.ballSprite4.setSize(50, 50);
             this.currentBallCounter++;
 
@@ -372,25 +387,25 @@ public class Dashboard1 extends ScreenAdapter {
         if (ball1X < 0 || ball1X > 1570){
             this.ballsSpeedX[0] *= -1;
         }
-        if (ball1Y < 50 || ball1Y > 960){
+        if (ball1Y < 50 || ball1Y > 910){
             this.ballsSpeedY[0] *= -1;
         }
         if (ball2X < 0 || ball2X > 1570){
             this.ballsSpeedX[1] *= -1;
         }
-        if (ball2Y < 50 || ball2Y > 960){
+        if (ball2Y < 50 || ball2Y > 910){
             this.ballsSpeedY[1] *= -1;
         }
         if (ball3X < 0 || ball3X > 1570){
             this.ballsSpeedX[2] *= -1;
         }
-        if (ball3Y < 50 || ball3Y > 960){
+        if (ball3Y < 50 || ball3Y > 910){
             this.ballsSpeedY[2] *= -1;
         }
         if (ball4X < 0 || ball4X > 1570){
             this.ballsSpeedX[3] *= -1;
         }
-        if (ball4Y < 50 || ball4Y > 960){
+        if (ball4Y < 50 || ball4Y > 910){
             this.ballsSpeedY[3] *= -1;
         }
 
