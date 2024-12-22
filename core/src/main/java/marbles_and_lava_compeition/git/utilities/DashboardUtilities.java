@@ -59,5 +59,9 @@ public class DashboardUtilities {
         }
     }
 
+    public void loadMarblesInGame(ArrayList<Sprite> marbles, Main game){
+
+    }
+
 
 }

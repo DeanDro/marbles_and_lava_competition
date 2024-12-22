@@ -94,9 +94,10 @@ public class Dashboard1 extends ScreenAdapter {
 
     // Session for each game
     // In String array element breakdown is -> 0: Country name, 1: Active/Inactive, 2: posX, 3: posY, 4: speedX, 5: speedY
-    private Hashtable<Marbles, String[]> session;
+    private String[] marblesGame = {"Off", "Off", "Off", "Off"};
     private int[] ballsSpeedX = {2, 2, 2, 2};
     private int[] ballsSpeedY = {2, 2, 2, 2};
+
 
 
     public Dashboard1(Main game, String[] groups, String gamer){
@@ -108,7 +109,6 @@ public class Dashboard1 extends ScreenAdapter {
         this.totalBalls = countriesGroups.length;
         this.elements = new ArrayList<>();
         this.gameOn = true;
-        this.session = new Hashtable<>();
         this.ballsInGame = 0;
     }
 
@@ -291,66 +291,63 @@ public class Dashboard1 extends ScreenAdapter {
 
     // Load marbles in the game
     public void loadMarbles(){
-        if (this.currentBallCounter < this.totalBalls && this.ballsInGame < 4){
-            this.session = new Hashtable<>();
+        //if (this.currentBallCounter < this.totalBalls && this.ballsInGame < 4){
 
             this.marble1 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            String[] marble1Data = {this.countriesGroups[this.currentBallCounter], "Inactive", "0", "0", "2", "2"};
             this.ballTexture1 = this.marble1.getTexture();
-            this.ballSprite1 = this.marble1.getCircleSpriteNoPos(50, 50);
-            this.session.put(this.marble1, marble1Data);
+            this.ballSprite1 = new Sprite(this.ballTexture1);
+            this.ballSprite1.setPosition(50f, 50f);
+            this.ballSprite1.setSize(50, 50);
             this.currentBallCounter++;
 
             this.marble2 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            String[] marble2Data = {this.countriesGroups[this.currentBallCounter], "Inactive", "0", "0", "2", "2"};
             this.ballTexture2 = this.marble2.getTexture();
-            this.ballSprite2 = this.marble2.getCircleSpriteNoPos(50, 50);
-            this.session.put(this.marble2, marble2Data);
+            this.ballSprite2 = new Sprite(this.ballTexture2);
+            this.ballSprite2.setPosition(50f, 50f);
+            this.ballSprite2.setSize(50, 50);
             this.currentBallCounter++;
 
             this.marble3 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            String[] marble3Data = {this.countriesGroups[this.currentBallCounter], "Inactive", "0", "0", "2", "2"};
             this.ballTexture3 = this.marble3.getTexture();
-            this.ballSprite3 = this.marble3.getCircleSpriteNoPos(50, 50);
-            this.session.put(this.marble3, marble3Data);
+            this.ballSprite3 = new Sprite(this.ballTexture3);
+            this.ballSprite3.setPosition(50f, 50f);
+            this.ballSprite3.setSize(50, 50);
             this.currentBallCounter++;
 
             this.marble4 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            String[] marble4Data = {this.countriesGroups[this.currentBallCounter], "Inactive", "0", "0", "2", "2"};
             this.ballTexture4 = this.marble4.getTexture();
-            this.ballSprite4 = this.marble4.getCircleSpriteNoPos(50, 50);
-            this.session.put(this.marble4, marble4Data);
+            this.ballSprite4 = new Sprite(this.ballTexture4);
+            this.ballSprite4.setPosition(50f, 50f);
+            this.ballSprite4.setSize(50, 50);
             this.currentBallCounter++;
 
             this.ballsInGame = 4;
-        }
+        //}
+
     }
 
     // Method to handle marbles
-    public boolean addMarblesInGame(int second){
+    public void addMarblesInGame(int second){
 
         // We are able to add marbles only when second of game are divided by 4
         if (this.gameStatus()){
-            if ( second % 4 == 0){
 
-                Set<Marbles> keys = this.session.keySet();
+            this.marblesMovement();
 
-                for (Marbles key: keys){
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite1, (int) this.ballSprite1.getX(),
+                (int) this.ballSprite1.getY(), 50, 50);
 
-                    if (this.session.get(key)[1].equals("Inactive")){
-                        this.utilities.setSpritePosSize(this.game, key.getImgSprite(), (int) this.pipeSprite.getX(),
-                            (int) this.pipeSprite.getY(), 50, 50);
-                        this.session.get(key)[1] = "Active";
-                        this.ballSprite1.setPosition(200f, 200f);
-                        return true;
-                    }
-                }
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite2, (int) this.ballSprite2.getX(),
+                (int) this.ballSprite2.getY(), 50, 50);
 
-            }
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite3, (int) this.ballSprite3.getX(),
+                (int) this.ballSprite3.getY(), 50, 50);
+
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite4, (int) this.ballSprite4.getX(),
+                (int) this.ballSprite4.getY(), 50, 50);
 
         }
 
-        return false;
     }
 
     // Update marbles location
@@ -429,7 +426,7 @@ public class Dashboard1 extends ScreenAdapter {
             this.goalieSpeed = 10;
         }
 
-
+        this.loadMarbles();
 
     }
 
@@ -464,7 +461,6 @@ public class Dashboard1 extends ScreenAdapter {
         this.movingElements();
 
         // Marbles
-        this.loadMarbles();
         this.addMarblesInGame(remSec);
         //this.marblesMovement();
 
