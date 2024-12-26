@@ -342,7 +342,7 @@ public class Dashboard1 extends ScreenAdapter {
     }
 
     // Method to handle marbles
-    public void addMarblesInGame(int second){
+    public void addMarblesInGame(){
 
         // We are able to add marbles only when second of game are divided by 4
         if (this.gameStatus()){
@@ -362,6 +362,62 @@ public class Dashboard1 extends ScreenAdapter {
                 (int) this.ballSprite4.getY(), 50, 50);
 
         }
+
+    }
+
+    // Update marbles location only for marbles currently in the game
+    public void updateCurrentMarblesLocation(int sec){
+
+        if (this.marblesGame[0].equals("Off")) {
+            if (sec % 4 == 0) {
+                this.marblesGame[0] = "On";
+                this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite1, (int) this.ballSprite1.getX(),
+                    (int) this.ballSprite1.getY(), 50, 50);
+            }
+        } else{
+            this.marblesMovement();
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite1, (int) this.ballSprite1.getX(),
+                (int) this.ballSprite1.getY(), 50, 50);
+
+        }
+
+        if (this.marblesGame[1].equals("Off")) {
+            if (sec % 3 == 0) {
+                this.marblesGame[1] = "On";
+                this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite2, (int) this.ballSprite2.getX(),
+                    (int) this.ballSprite2.getY(), 50, 50);
+            }
+        } else{
+            this.marblesMovement();
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite2, (int) this.ballSprite2.getX(),
+                (int) this.ballSprite2.getY(), 50, 50);
+        }
+
+        if (this.marblesGame[2].equals("Off")) {
+            if (sec % 5 == 0) {
+                this.marblesGame[2] = "On";
+                this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite3, (int) this.ballSprite3.getX(),
+                    (int) this.ballSprite3.getY(), 50, 50);
+            }
+        } else{
+            this.marblesMovement();
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite3, (int) this.ballSprite3.getX(),
+                (int) this.ballSprite3.getY(), 50, 50);
+        }
+
+        if (this.marblesGame[3].equals("Off")) {
+            if (sec % 2 == 0) {
+                this.marblesGame[3] = "On";
+                this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite4, (int) this.ballSprite4.getX(),
+                    (int) this.ballSprite4.getY(), 50, 50);
+            }
+        }
+        else{
+            this.marblesMovement();
+            this.utilities.setSpritePosSizeDraw(this.game, this.ballSprite4, (int) this.ballSprite4.getX(),
+                (int) this.ballSprite4.getY(), 50, 50);
+        }
+
 
     }
 
@@ -476,8 +532,9 @@ public class Dashboard1 extends ScreenAdapter {
         this.movingElements();
 
         // Marbles
-        this.addMarblesInGame(remSec);
+        //this.addMarblesInGame();
         //this.marblesMovement();
+        this.updateCurrentMarblesLocation((int) timeRemaining);
 
 
         this.stage.draw();
