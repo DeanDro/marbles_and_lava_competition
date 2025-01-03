@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.Random;
 
 
-public class Dashboard1 extends ScreenAdapter {
+public class DashboardTest extends ScreenAdapter {
 
     public static final String BACKGROUND_IMAGES_KIDS_CHEERING_4_PNG = "background_images/kids_cheering4.png";
     public Main game;
@@ -106,7 +106,7 @@ public class Dashboard1 extends ScreenAdapter {
 
 
 
-    public Dashboard1(Main game, String[] groups, String gamer){
+    public DashboardTest(Main game, String[] groups, String gamer){
         this.game = game;
         this.countriesGroups = groups;
         this.winners = new String[(groups.length)/2];  // Only half of the marbles will be making it to the next round
@@ -300,43 +300,43 @@ public class Dashboard1 extends ScreenAdapter {
     public void loadMarbles(){
         //if (this.currentBallCounter < this.totalBalls && this.ballsInGame < 4){
 
-            this.marble1 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            this.ballTexture1 = this.marble1.getTexture();
-            this.ballSprite1 = new Sprite(this.ballTexture1);
-            int x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
-            int y = random.nextInt(this.maxY - this.minY) + this.minY;
-            this.ballSprite1.setPosition(x, y);
-            this.ballSprite1.setSize(50, 50);
-            this.currentBallCounter++;
+        this.marble1 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
+        this.ballTexture1 = this.marble1.getTexture();
+        this.ballSprite1 = new Sprite(this.ballTexture1);
+        int x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+        int y = random.nextInt(this.maxY - this.minY) + this.minY;
+        this.ballSprite1.setPosition(x, y);
+        this.ballSprite1.setSize(50, 50);
+        this.currentBallCounter++;
 
-            this.marble2 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            this.ballTexture2 = this.marble2.getTexture();
-            this.ballSprite2 = new Sprite(this.ballTexture2);
-            x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
-            y = random.nextInt(this.maxY - this.minY) + this.minY;
-            this.ballSprite2.setPosition(x, y);
-            this.ballSprite2.setSize(50, 50);
-            this.currentBallCounter++;
+        this.marble2 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
+        this.ballTexture2 = this.marble2.getTexture();
+        this.ballSprite2 = new Sprite(this.ballTexture2);
+        x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+        y = random.nextInt(this.maxY - this.minY) + this.minY;
+        this.ballSprite2.setPosition(x, y);
+        this.ballSprite2.setSize(50, 50);
+        this.currentBallCounter++;
 
-            this.marble3 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            this.ballTexture3 = this.marble3.getTexture();
-            this.ballSprite3 = new Sprite(this.ballTexture3);
-            x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
-            y = random.nextInt(this.maxY - this.minY) + this.minY;
-            this.ballSprite3.setPosition(x, y);
-            this.ballSprite3.setSize(50, 50);
-            this.currentBallCounter++;
+        this.marble3 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
+        this.ballTexture3 = this.marble3.getTexture();
+        this.ballSprite3 = new Sprite(this.ballTexture3);
+        x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+        y = random.nextInt(this.maxY - this.minY) + this.minY;
+        this.ballSprite3.setPosition(x, y);
+        this.ballSprite3.setSize(50, 50);
+        this.currentBallCounter++;
 
-            this.marble4 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
-            this.ballTexture4 = this.marble4.getTexture();
-            this.ballSprite4 = new Sprite(this.ballTexture4);
-            x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
-            y = random.nextInt(this.maxY - this.minY) + this.minY;
-            this.ballSprite4.setPosition(x, y);
-            this.ballSprite4.setSize(50, 50);
-            this.currentBallCounter++;
+        this.marble4 = new Marbles(this.countriesGroups[this.currentBallCounter], this.skin);
+        this.ballTexture4 = this.marble4.getTexture();
+        this.ballSprite4 = new Sprite(this.ballTexture4);
+        x = random.nextInt(this.maxX - this.minX + 1) + this.minX;
+        y = random.nextInt(this.maxY - this.minY) + this.minY;
+        this.ballSprite4.setPosition(x, y);
+        this.ballSprite4.setSize(50, 50);
+        this.currentBallCounter++;
 
-            this.ballsInGame = 4;
+        this.ballsInGame = 4;
         //}
 
     }
